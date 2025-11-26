@@ -27,8 +27,9 @@ jobs:
 
       - name: Run consumer-producer suite
         run: |
-          chmod +x consumer-producer/scripts/*.sh
-          ./consumer-producer/scripts/run-tests.sh
+          chmod +x scripts/*.sh
+          ./scripts/run-tests.sh
+        working-directory: consumer-producer
 
   data-analysis-tests:
     name: Data Analysis Tests
@@ -47,14 +48,11 @@ jobs:
           distribution: temurin
           java-version: "17"
 
-      - name: Cache downloaded tooling
-        uses: actions/cache@v4
-        with:
-          path: data-analysis/lib
-          key: data-analysis-junit-${{ hashFiles('data-analysis/run-tests.sh') }}
-
       - name: Run data-analysis suite
         run: |
-          chmod +x data-analysis/*.sh
-          ./data-analysis/run-tests.sh
+          chmod +x *.sh
+          ./run-tests.sh
+        working-directory: data-analysis
+        env:
+          XARGS_NO_RUN_IF_EMPTY: "1"
 
