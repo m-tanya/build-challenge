@@ -48,6 +48,8 @@ Use `docker compose logs > run.log` if you need to export output.
 
 👉 Check the Actions tab in GitHub to view the latest workflow run logs and downloadable artifacts for each module.
 
+![GitHub Actions history](data-analysis/test-result/image.png)
+
 ## Testing & Output Artifacts
 
 | Module | Command(s) | Captured Output |
