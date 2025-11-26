@@ -1,0 +1,60 @@
+╔════════════════════════════════════════╗
+║         Compiling Java Files           ║
+╚════════════════════════════════════════╝
+
+Compiling source files...
+Source files compiled successfully
+
+Compiling test files...
+Test files compiled successfully
+
+All files compiled successfully!
+  Output directory: bin/
+
+╔════════════════════════════════════════╗
+║         Running All Tests              ║
+╚════════════════════════════════════════╝
+
+Running tests with JUnit 5...
+JUnit Jupiter
+  SharedQueueTest
+    testBasicPutGet()  SUCCESS
+    testConsumersReleaseWhenProducersDone()  SUCCESS
+    testEmptyQueueState()  SUCCESS
+    testCapacity()  SUCCESS
+    testFifoOrdering()  SUCCESS
+    testMultipleOperations()  SUCCESS
+  EdgeCaseTest
+    testZeroCapacity()  SUCCESS
+    testNullItemRejection()  SUCCESS
+    testNegativeCapacity()  SUCCESS
+    testThreadInterruption()  SUCCESS
+    testVeryLargeCapacity()  SUCCESS
+    testEmptyQueueOperations()  SUCCESS
+    testOverflowProtection()  SUCCESS
+    testCapacityOne()  SUCCESS
+  ProducerConsumerTest
+    testSingleProducerSingleConsumer()  SUCCESS
+    testMultipleProducersConsumers()  SUCCESS
+    testLargeDataSetThroughput()  SUCCESS
+JUnit Vintage  SUCCESS
+JUnit Platform Suite  SUCCESS
+
+Test run finished after 397 ms
+[         6 containers found      ]
+[         0 containers skipped    ]
+[         6 containers started    ]
+[         0 containers aborted    ]
+[         6 containers successful ]
+[         0 containers failed     ]
+[        17 tests found           ]
+[         0 tests skipped         ]
+[        17 tests started         ]
+[         0 tests aborted         ]
+[        17 tests successful      ]
+[         0 tests failed          ]
+
+
+╔════════════════════════════════════════╗
+║   All Tests Passed Successfully!    ║
+╚════════════════════════════════════════╝

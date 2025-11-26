@@ -1,0 +1,39 @@
+╔════════════════════════════════════════╗
+║         Compiling Java Files           ║
+╚════════════════════════════════════════╝
+
+Compiling source files...
+✓ Source files compiled successfully
+
+Compiling test files...
+✓ Test files compiled successfully
+
+✓ All files compiled successfully!
+  Output directory: bin/
+
+╔════════════════════════════════════════╗
+║         Running Demo                   ║
+╚════════════════════════════════════════╝
+
+╔════════════════════════════════════════╗
+║   Producer-Consumer Pattern Demo      ║
+╚════════════════════════════════════════╝
+
+Configuration:
+  Items to transfer: 20
+  Queue capacity: 5
+  Producer delay: 50ms
+  Consumer delay: 100ms
+  (Consumer is slower - expect queue to fill up)
+
+Starting producer and consumer threads...
+
+
+=== Results ===
+Time elapsed: 2101ms
+Source size: 0
+Destination size: 20
+Queue size: 0
+
+Verification: ✓ SUCCESS
+All 20 items successfully transferred!

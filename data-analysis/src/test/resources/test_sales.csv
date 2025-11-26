@@ -1,0 +1,6 @@
+transaction_id,invoice_id,invoice_date,payment_date,due_date,customer_id,customer_segment,product_id,product_name,product_category,quantity,unit_price,discount_amount,tax_amount,cost_of_goods_sold,currency,region,country,channel,is_refund,is_subscription,subscription_plan,payment_status,tax_jurisdiction
+TXN-1001,INV-2001,2025-01-15,2025-02-02,2025-02-01,CUST-101,SMB,PROD-1,Bookkeeping Software,Subscription,3,49.99,5.00,3.75,20.00,USD,CA,US,Online,false,true,Monthly,PAID,CA-STATE
+TXN-1002,INV-2002,2025-01-20,,2025-02-05,CUST-102,Startup,PROD-2,Tax Preparation Tool,Software,1,99.99,0.00,8.00,50.00,USD,TX,US,Retail,false,false,,UNPAID,TX-STATE
+TXN-1003,INV-2003,2025-02-10,2025-02-25,2025-02-25,CUST-101,SMB,PROD-1,Bookkeeping Software,Subscription,2,49.99,0.00,4.00,20.00,USD,CA,US,Online,false,true,Monthly,PAID,CA-STATE
+TXN-1004,INV-2004,2025-01-25,2025-01-30,2025-02-10,CUST-103,Freelancer,PROD-3,Invoice Generator,Service,1,29.99,5.00,2.00,10.00,USD,NY,US,Partner,true,false,,PAID,NY-STATE
+

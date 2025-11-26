@@ -1,0 +1,22 @@
+version: "3.9"
+
+services:
+  consumer-producer:
+    build:
+      context: ./consumer-producer
+    working_dir: /app
+    command: ./scripts/run-demo.sh
+
+  consumer-producer-tests:
+    build:
+      context: ./consumer-producer
+    working_dir: /app
+    command: ./scripts/run-tests.sh
+    profiles: ["ci"]
+
+  data-analysis:
+    build:
+      context: ./data-analysis
+    working_dir: /app
+    command: ./run-tests.sh
+

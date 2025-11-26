@@ -1,0 +1,28 @@
+# Compiled output
+out/
+out-test/
+
+# JUnit libraries (downloaded manually)
+lib/*.jar
+
+# Generated data
+data/*.csv
+!data/.gitkeep
+
+# IDE files
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+.classpath
+.project
+.settings/
+bin/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
