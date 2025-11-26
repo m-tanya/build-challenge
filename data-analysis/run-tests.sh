@@ -29,5 +29,9 @@ if [ $? -ne 0 ]; then
 fi
 
 echo "Running tests..."
-java -jar "$JUNIT_JAR" --class-path "out:out-test" --scan-class-path
+java -jar "$JUNIT_JAR" execute \
+  --class-path "out:out-test" \
+  --scan-class-path \
+  --disable-banner \
+  --details=tree
 

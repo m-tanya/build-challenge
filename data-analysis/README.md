@@ -22,6 +22,14 @@ A Java application for analyzing sales data from CSV files using Java Streams an
 - `inputPath` (optional): Path to the CSV file. If not provided, defaults to `data/sales.csv`.
 - `--asOfDate=YYYY-MM-DD` (optional): Date for aging analysis. If not provided, uses current date.
 
+## Choices & Assumptions
+- **Language & Tooling**: Pure Java 17 project with no build system; scripts invoke `javac`/`java` directly so the app runs anywhere a JDK is available. JUnit Console Standalone is downloaded on demand.
+- **Dataset**: `data/sales.csv` is a synthetic dataset with discounts, refunds, and late invoices so every analytics section has meaningful signal. Values are in USD and pre-normalized; currency conversion is out of scope.
+- **Precision**: Monetary calculations use `BigDecimal` and reporting uses US locale formatting. Metrics are rounded for readability but keep two decimal places.
+- **Execution Model**: Entire dataset loads in memory to prioritize simplicity and streaming-style operations. For extremely large files you would swap in chunked loaders, but that was not required here.
+- **Reporting**: Output goes to stdout only (no external storage) to make it easy to capture logs (`analysis-report.txt`, `ci-run.log`) for submissions and CI artifacts.
+- **Date Handling**: Aging calculations default to the system date; tests pin deterministic dates to keep assertions stable.
+
 ---
 
 ## Output and Explanation
@@ -297,264 +305,18 @@ If you prefer not to use JUnit, you can create a simple test runner. See `TESTIN
 
 ## Test Output
 
-When tests are run successfully, you'll see output similar to the following:
-
-```
-Thanks for using JUnit! Support its development at https://junit.org/sponsoring
-
-+-- JUnit Jupiter [OK]
-| +-- DateUtilsTest [OK]
-| | +-- testToYearMonth() [OK]
-| | +-- testParseDateNull() [OK]
-| | +-- testParseDate() [OK]
-| | +-- testFormatDate() [OK]
-| | +-- testToYearMonthNull() [OK]
-| | +-- testFormatDateNull() [OK]
-| | '-- testParseDateInvalid() [OK]
-| +-- EndToEndAnalysisTest [OK]
-| | +-- testEndToEndAnalysis() [OK]
-| | +-- testTopRankings() [OK]
-| | '-- testInvoiceSummaries() [OK]
-| +-- GeneratedCsvRoundTripTest [OK]
-| | +-- testRoundTrip() [OK]
-| | +-- testRefunds() [OK]
-| | '-- testInvoiceGrouping() [OK]
-| +-- ConsoleReporterTest [OK]
-| | +-- testPrintReport() [OK]
-| | '-- testPrintAgingSummary() [OK]
-| +-- InvoiceSummaryTest [OK]
-| | +-- testOutstandingAmount() [OK]
-| | +-- testAgingBucket() [OK]
-| | '-- testDaysOverdue() [OK]
-| +-- CsvSalesLoaderTest [OK]
-| | +-- testLoadValidCsv(Path) [OK]
-| | +-- testLoadWithInvalidRows(Path) [OK]
-| | +-- testLoadEmptyFile(Path) [OK]
-| | '-- testParseLine() [OK]
-| +-- AggregationUtilsTest [OK]
-| | +-- testTopNByValue() [OK]
-| | +-- testTopNByValueWithTies() [OK]
-| | +-- testTopNByValueEmpty() [OK]
-| | '-- testTopNByValueLessThanN() [OK]
-| +-- SalesAnalyticsServiceTest [OK]
-| | +-- testCalculateRevenueSummary() [OK]
-| | +-- testSegmentation() [OK]
-| | +-- testTimeBasedTrends() [OK]
-| | +-- testTopProductsByRevenue() [OK]
-| | +-- testTopCustomersByRevenue() [OK]
-| | +-- testTopRegionsByRevenue() [OK]
-| | +-- testDiscountsAndRefunds() [OK]
-| | +-- testCashVsAccrualRevenue() [OK]
-| | +-- testCalculateInvoiceSummaries() [OK]
-| | +-- testAgingBuckets() [OK]
-| | +-- testCalculateAgingSummary() [OK]
-| | +-- testCalculateMarginSummary() [OK]
-| | +-- testRefundHandling() [OK]
-| | '-- testEmptyRecords() [OK]
-| +-- CsvDataGeneratorTest [OK]
-| | +-- testGenerate(Path) [OK]
-| | +-- testGeneratedDataStructure(Path) [OK]
-| | '-- testGenerateWithCustomDateRange(Path) [OK]
-| '-- SalesRecordTest [OK]
-|   +-- testGrossAmount() [OK]
-|   +-- testNetAmount() [OK]
-|   +-- testNetAmountWithRefund() [OK]
-|   +-- testGrossProfit() [OK]
-|   +-- testIsPaid() [OK]
-|   '-- testIsOpen() [OK]
-+-- JUnit Vintage [OK]
-'-- JUnit Platform Suite [OK]
-
-Test run finished after 4796 ms
-[        13 containers found      ]
-[         0 containers skipped    ]
-[        13 containers started    ]
-[         0 containers aborted    ]
-[        13 containers successful ]
-[         0 containers failed     ]
-[        49 tests found           ]
-[         0 tests skipped         ]
-[        49 tests started         ]
-[         0 tests aborted         ]
-[        49 tests successful      ]
-[         0 tests failed          ]
-```
-
-**Summary:**
-- **13 test containers** (test classes)
-- **49 tests** total
-- **49 tests successful**
-- **0 tests failed**
-- **0 tests skipped**
-
+Check folder /test-result for output
 ---
 
 ## Test Suites and Coverage
 
-The test suite is organized into **unit tests** and **integration tests**, providing comprehensive coverage of all application components.
-
 ### Unit Tests
-
-#### 1. **SalesRecordTest** (6 tests)
-Tests the core domain model:
-- `testGrossAmount()`: Validates gross amount calculation (quantity × unit_price)
-- `testNetAmount()`: Validates net amount calculation (gross - discount + tax)
-- `testNetAmountWithRefund()`: Validates negative net amount for refunds
-- `testGrossProfit()`: Validates gross profit calculation (net revenue - COGS)
-- `testIsPaid()`: Validates payment status detection
-- `testIsOpen()`: Validates open invoice detection
-
-**Coverage**: Core domain model calculations and business logic.
-
-#### 2. **InvoiceSummaryTest** (3 tests)
-Tests invoice aggregation logic:
-- `testOutstandingAmount()`: Validates outstanding amount calculation for unpaid invoices
-- `testAgingBucket()`: Validates aging bucket assignment (0-30, 31-60, 61-90, 90+ days)
-- `testDaysOverdue()`: Validates days overdue calculation
-
-**Coverage**: Invoice-level aggregations and aging calculations.
-
-#### 3. **DateUtilsTest** (7 tests)
-Tests date utility functions:
-- `testParseDate()`: Validates ISO 8601 date parsing
-- `testParseDateNull()`: Validates null handling
-- `testParseDateInvalid()`: Validates invalid date format handling
-- `testFormatDate()`: Validates date formatting
-- `testFormatDateNull()`: Validates null formatting
-- `testToYearMonth()`: Validates YearMonth conversion
-- `testToYearMonthNull()`: Validates null YearMonth conversion
-
-**Coverage**: Date parsing, formatting, and conversion utilities.
-
-#### 4. **CsvSalesLoaderTest** (4 tests)
-Tests CSV loading and parsing:
-- `testLoadValidCsv()`: Validates loading valid CSV files
-- `testLoadWithInvalidRows()`: Validates error handling for invalid rows
-- `testLoadEmptyFile()`: Validates handling of empty files
-- `testParseLine()`: Validates individual line parsing
-
-**Coverage**: CSV parsing, validation, and error handling.
-
-#### 5. **CsvDataGeneratorTest** (3 tests)
-Tests synthetic data generation:
-- `testGenerate()`: Validates CSV file generation
-- `testGeneratedDataStructure()`: Validates CSV structure and schema
-- `testGenerateWithCustomDateRange()`: Validates custom date range generation
-
-**Coverage**: Data generation logic and CSV structure validation.
-
-#### 6. **SalesAnalyticsServiceTest** (14 tests)
-Tests all analytics calculations:
-- `testCalculateRevenueSummary()`: Validates revenue summary calculations
-- `testSegmentation()`: Validates segmentation by product, category, region, channel, customer segment
-- `testTimeBasedTrends()`: Validates monthly trends, MoM changes, rolling averages
-- `testTopProductsByRevenue()`: Validates top N product rankings
-- `testTopCustomersByRevenue()`: Validates top N customer rankings
-- `testTopRegionsByRevenue()`: Validates top N region rankings
-- `testDiscountsAndRefunds()`: Validates discount and refund calculations
-- `testCashVsAccrualRevenue()`: Validates cash vs accrual revenue comparison
-- `testCalculateInvoiceSummaries()`: Validates invoice summary aggregation
-- `testAgingBuckets()`: Validates aging bucket calculations
-- `testCalculateAgingSummary()`: Validates aging summary aggregation
-- `testCalculateMarginSummary()`: Validates margin and profitability calculations
-- `testRefundHandling()`: Validates refund handling in calculations
-- `testEmptyRecords()`: Validates handling of empty record sets
-
-**Coverage**: All analytics methods and edge cases.
-
-#### 7. **AggregationUtilsTest** (4 tests)
-Tests utility functions for top N calculations:
-- `testTopNByValue()`: Validates top N selection
-- `testTopNByValueWithTies()`: Validates handling of tied values
-- `testTopNByValueEmpty()`: Validates handling of empty collections
-- `testTopNByValueLessThanN()`: Validates handling when fewer than N items exist
-
-**Coverage**: Top N aggregation utilities.
-
-#### 8. **ConsoleReporterTest** (2 tests)
-Tests report formatting:
-- `testPrintReport()`: Validates report output formatting
-- `testPrintAgingSummary()`: Validates aging summary formatting
-
-**Coverage**: Report output formatting and presentation.
-
-### Integration Tests
-
-#### 9. **EndToEndAnalysisTest** (3 tests)
-Tests complete end-to-end workflows:
-- `testEndToEndAnalysis()`: Validates complete analysis workflow from CSV loading to report generation
-- `testTopRankings()`: Validates top rankings in end-to-end context
-- `testInvoiceSummaries()`: Validates invoice summaries in end-to-end context
-
-**Coverage**: Full application workflow and component integration.
-
-#### 10. **GeneratedCsvRoundTripTest** (3 tests)
-Tests data generation and loading round-trip:
-- `testRoundTrip()`: Validates that generated CSV can be loaded and analyzed
-- `testRefunds()`: Validates refund handling in round-trip scenario
-- `testInvoiceGrouping()`: Validates invoice grouping in round-trip scenario
 
 **Coverage**: Data generation, loading, and analysis integration.
 
 ### Test Coverage Summary
 
-The test suite provides comprehensive coverage:
-
-- ✅ **Model Classes**: All calculation methods tested
-- ✅ **CSV Loading**: Parsing, validation, error handling
-- ✅ **Data Generation**: CSV structure and content validation
-- ✅ **Analytics**: All analytics methods with edge cases
-- ✅ **Utilities**: Date parsing, formatting, aggregation utilities
-- ✅ **Reporting**: Output formatting and presentation
-- ✅ **Integration**: End-to-end workflows and round-trip scenarios
-
 **Total Coverage**: 49 tests covering all major components and edge cases.
-
----
-
-## Project Structure
-
-```
-src/main/java/com/dataanalysis/
-├── app/
-│   └── Main.java                    # CLI entrypoint
-├── model/
-│   ├── SalesRecord.java             # Domain model for CSV rows
-│   ├── InvoiceSummary.java          # Invoice aggregation
-│   ├── RevenueSummary.java          # Revenue analytics results
-│   ├── AgingSummary.java            # Aging analysis results
-│   └── MarginSummary.java           # Profitability results
-├── loader/
-│   └── CsvSalesLoader.java          # CSV parsing and validation
-├── generator/
-│   └── CsvDataGenerator.java        # Synthetic data generation
-├── analytics/
-│   ├── SalesAnalyticsService.java   # Core analytics logic
-│   └── AggregationUtils.java        # Utility methods
-├── report/
-│   └── ConsoleReporter.java         # Human-readable output formatting
-└── util/
-    └── DateUtils.java               # Date parsing utilities
-
-src/test/java/com/dataanalysis/
-├── model/
-│   ├── SalesRecordTest.java
-│   └── InvoiceSummaryTest.java
-├── loader/
-│   └── CsvSalesLoaderTest.java
-├── generator/
-│   └── CsvDataGeneratorTest.java
-├── analytics/
-│   ├── SalesAnalyticsServiceTest.java
-│   └── AggregationUtilsTest.java
-├── report/
-│   └── ConsoleReporterTest.java
-├── util/
-│   └── DateUtilsTest.java
-└── integration/
-    ├── EndToEndAnalysisTest.java
-    └── GeneratedCsvRoundTripTest.java
-```
 
 ---
 

@@ -1,0 +1,81 @@
+Compiling main source files...
+Compiling test source files...
+Running tests...
+[36m╷[0m
+[36m├─[0m [36mJUnit Jupiter[0m [32m✔[0m
+[36m│  ├─[0m [36mDateUtilsTest[0m [32m✔[0m
+[36m│  │  ├─[0m [34mtestToYearMonth()[0m [32m✔[0m
+[36m│  │  ├─[0m [34mtestParseDateNull()[0m [32m✔[0m
+[36m│  │  ├─[0m [34mtestParseDate()[0m [32m✔[0m
+[36m│  │  ├─[0m [34mtestFormatDate()[0m [32m✔[0m
+[36m│  │  ├─[0m [34mtestToYearMonthNull()[0m [32m✔[0m
+[36m│  │  ├─[0m [34mtestFormatDateNull()[0m [32m✔[0m
+[36m│  │  └─[0m [34mtestParseDateInvalid()[0m [32m✔[0m
+[36m│  ├─[0m [36mEndToEndAnalysisTest[0m [32m✔[0m
+[36m│  │  ├─[0m [34mtestEndToEndAnalysis()[0m [32m✔[0m
+[36m│  │  ├─[0m [34mtestTopRankings()[0m [32m✔[0m
+[36m│  │  └─[0m [34mtestInvoiceSummaries()[0m [32m✔[0m
+[36m│  ├─[0m [36mGeneratedCsvRoundTripTest[0m [32m✔[0m
+[36m│  │  ├─[0m [34mtestGeneratedCsvRoundTrip(Path)[0m [32m✔[0m
+[36m│  │  ├─[0m [34mtestGeneratedCsvWithRefunds(Path)[0m [32m✔[0m
+[36m│  │  └─[0m [34mtestGeneratedCsvInvoiceGrouping(Path)[0m [32m✔[0m
+[36m│  ├─[0m [36mAggregationUtilsTest[0m [32m✔[0m
+[36m│  │  ├─[0m [34mtestTopNOrdering()[0m [32m✔[0m
+[36m│  │  ├─[0m [34mtestTopN()[0m [32m✔[0m
+[36m│  │  ├─[0m [34mtestTopNWithMoreThanAvailable()[0m [32m✔[0m
+[36m│  │  └─[0m [34mtestTopNEmpty()[0m [32m✔[0m
+[36m│  ├─[0m [36mConsoleReporterTest[0m [32m✔[0m
+[36m│  │  ├─[0m [34mtestPrintReportWithEmptyData()[0m [32m✔[0m
+[36m│  │  └─[0m [34mtestPrintReport()[0m [32m✔[0m
+[36m│  ├─[0m [36mInvoiceSummaryTest[0m [32m✔[0m
+[36m│  │  ├─[0m [34mtestAgingBucket()[0m [32m✔[0m
+[36m│  │  ├─[0m [34mtestOutstandingAmount()[0m [32m✔[0m
+[36m│  │  └─[0m [34mtestDaysOverdue()[0m [32m✔[0m
+[36m│  ├─[0m [36mCsvSalesLoaderTest[0m [32m✔[0m
+[36m│  │  ├─[0m [34mtestParseBoolean()[0m [32m✔[0m
+[36m│  │  ├─[0m [34mtestLoadWithInvalidRows(Path)[0m [32m✔[0m
+[36m│  │  ├─[0m [34mtestLoadValidCsv(Path)[0m [32m✔[0m
+[36m│  │  └─[0m [34mtestLoadEmptyFile(Path)[0m [32m✔[0m
+[36m│  ├─[0m [36mSalesAnalyticsServiceTest[0m [32m✔[0m
+[36m│  │  ├─[0m [34mtestCashVsAccrualRevenue()[0m [32m✔[0m
+[36m│  │  ├─[0m [34mtestTimeBasedTrends()[0m [32m✔[0m
+[36m│  │  ├─[0m [34mtestTopRegionsByRevenue()[0m [32m✔[0m
+[36m│  │  ├─[0m [34mtestTopProductsByRevenue()[0m [32m✔[0m
+[36m│  │  ├─[0m [34mtestCalculateMarginSummary()[0m [32m✔[0m
+[36m│  │  ├─[0m [34mtestDiscountsAndRefunds()[0m [32m✔[0m
+[36m│  │  ├─[0m [34mtestTopCustomersByRevenue()[0m [32m✔[0m
+[36m│  │  ├─[0m [34mtestCalculateRevenueSummary()[0m [32m✔[0m
+[36m│  │  ├─[0m [34mtestAgingBuckets()[0m [32m✔[0m
+[36m│  │  ├─[0m [34mtestSegmentation()[0m [32m✔[0m
+[36m│  │  ├─[0m [34mtestRefundHandling()[0m [32m✔[0m
+[36m│  │  ├─[0m [34mtestCalculateInvoiceSummaries()[0m [32m✔[0m
+[36m│  │  ├─[0m [34mtestEmptyRecords()[0m [32m✔[0m
+[36m│  │  └─[0m [34mtestCalculateAgingSummary()[0m [32m✔[0m
+[36m│  ├─[0m [36mCsvDataGeneratorTest[0m [32m✔[0m
+[36m│  │  ├─[0m [34mtestGeneratedDataStructure(Path)[0m [32m✔[0m
+[36m│  │  ├─[0m [34mtestGenerate(Path)[0m [32m✔[0m
+[36m│  │  └─[0m [34mtestGenerateWithCustomDateRange(Path)[0m [32m✔[0m
+[36m│  └─[0m [36mSalesRecordTest[0m [32m✔[0m
+[36m│     ├─[0m [34mtestGrossAmount()[0m [32m✔[0m
+[36m│     ├─[0m [34mtestGrossProfit()[0m [32m✔[0m
+[36m│     ├─[0m [34mtestNetAmount()[0m [32m✔[0m
+[36m│     ├─[0m [34mtestNetAmountWithRefund()[0m [32m✔[0m
+[36m│     ├─[0m [34mtestIsOpen()[0m [32m✔[0m
+[36m│     └─[0m [34mtestIsPaid()[0m [32m✔[0m
+[36m├─[0m [36mJUnit Vintage[0m [32m✔[0m
+[36m└─[0m [36mJUnit Platform Suite[0m [32m✔[0m
+
+Test run finished after 173 ms
+[        13 containers found      ]
+[         0 containers skipped    ]
+[        13 containers started    ]
+[         0 containers aborted    ]
+[        13 containers successful ]
+[         0 containers failed     ]
+[        49 tests found           ]
+[         0 tests skipped         ]
+[        49 tests started         ]
+[         0 tests aborted         ]
+[        49 tests successful      ]
+[         0 tests failed          ]
+
